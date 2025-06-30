@@ -1,7 +1,7 @@
 // @ts-nocheck ✅ Ignore tous les types dans ce fichier (temporairement)
 
 import { gql } from '@apollo/client';
-import client from '@/app/apolloClient';
+import client from '@/lib/apolloClient';
 
 const GET_POST = gql`
   query GetPostBySlug($slug: ID!) {
