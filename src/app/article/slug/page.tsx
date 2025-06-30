@@ -15,13 +15,8 @@ const GET_POST = gql`
   }
 `;
 
-interface PageProps {
-  params: {
-    slug: string;
-  };
-}
-
-export default async function ArticlePage({ params }: PageProps) {
+// ✅ Supprime les types explicites pour laisser Next inférer
+export default async function ArticlePage({ params }: { params: { slug: string } }) {
   const { data } = await client.query({
     query: GET_POST,
     variables: { slug: params.slug },
