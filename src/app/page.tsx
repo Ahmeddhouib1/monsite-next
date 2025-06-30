@@ -1,7 +1,7 @@
 'use client';
 
 import { gql, useQuery } from '@apollo/client';
-import client from '@/app/apolloClient';
+import client from '@/lib/apolloClient';
 import Link from 'next/link';
 
 

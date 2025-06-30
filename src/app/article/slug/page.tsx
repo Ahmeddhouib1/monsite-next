@@ -1,11 +1,5 @@
 import { gql } from '@apollo/client';
-import client from '@/app/apolloClient';
-
-type Props = {
-  params: {
-    slug: string;
-  };
-};
+import client from '@/lib/apolloClient';
 
 const GET_POST = gql`
   query GetPostBySlug($slug: ID!) {
@@ -21,7 +15,13 @@ const GET_POST = gql`
   }
 `;
 
-export default async function ArticlePage({ params }: Props) {
+interface PageProps {
+  params: {
+    slug: string;
+  };
+}
+
+export default async function ArticlePage({ params }: PageProps) {
   const { data } = await client.query({
     query: GET_POST,
     variables: { slug: params.slug },
