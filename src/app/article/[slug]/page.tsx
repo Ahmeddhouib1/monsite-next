@@ -15,15 +15,16 @@ const GET_POST = gql`
   }
 `;
 
-// ✅ NE PAS importer de type externe : inline typing uniquement
-export default async function Page({
-  params,
-}: {
-  params: { slug: string };
-}) {
+// ✅ PAS async ici
+export default function Page({ params }: { params: { slug: string } }) {
+  return <Article slug={params.slug} />;
+}
+
+// ✅ Composant séparé pour charger les données
+async function Article({ slug }: { slug: string }) {
   const { data } = await client.query({
     query: GET_POST,
-    variables: { slug: params.slug },
+    variables: { slug },
   });
 
   const post = data.post;
