@@ -1,5 +1,5 @@
 import { gql } from '@apollo/client';
-import client from '@/lib/apolloClient';
+import client from '@/lib/apolloClient'; // OK si ton fichier y est bien
 
 const GET_POST = gql`
   query GetPostBySlug($slug: ID!) {
@@ -15,13 +15,13 @@ const GET_POST = gql`
   }
 `;
 
-// ✅ PAS async ici
+// ✅ ATTENTION : nomme cette fonction simplement Page (Next.js le reconnaît)
 export default function Page({ params }: { params: { slug: string } }) {
-  return <Article slug={params.slug} />;
+  return <PostContent slug={params.slug} />;
 }
 
-// ✅ Composant séparé pour charger les données
-async function Article({ slug }: { slug: string }) {
+// ✅ Sépare la logique async ici
+async function PostContent({ slug }: { slug: string }) {
   const { data } = await client.query({
     query: GET_POST,
     variables: { slug },
