@@ -15,7 +15,7 @@ const GET_POST = gql`
   }
 `;
 
-// ✅ Voici le bon typage selon la convention Next.js App Router
+// ✅ NE PAS importer de type externe : inline typing uniquement
 export default async function Page({
   params,
 }: {
