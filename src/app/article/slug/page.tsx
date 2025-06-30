@@ -1,0 +1,42 @@
+import { gql } from '@apollo/client';
+import client from '@/app/apolloClient';
+
+const GET_POST = gql`
+  query GetPostBySlug($slug: ID!) {
+    post(id: $slug, idType: SLUG) {
+      title
+      content
+      featuredImage {
+        node {
+          sourceUrl
+        }
+      }
+    }
+  }
+`;
+
+export default async function ArticlePage({ params }: { params: { slug: string } }) {
+  const { data } = await client.query({
+    query: GET_POST,
+    variables: { slug: params.slug },
+  });
+
+  const post = data.post;
+
+  return (
+    <div className="p-8">
+      <h1 className="text-3xl font-bold mb-4">{post.title}</h1>
+      {post.featuredImage?.node?.sourceUrl && (
+        <img
+          src={post.featuredImage.node.sourceUrl}
+          alt={post.title}
+          className="w-full h-auto mb-4"
+        />
+      )}
+      <div
+        dangerouslySetInnerHTML={{ __html: post.content }}
+        className="prose prose-invert"
+      />
+    </div>
+  );
+}
