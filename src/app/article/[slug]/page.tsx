@@ -15,8 +15,12 @@ const GET_POST = gql`
   }
 `;
 
-// ✅ Supprime les types explicites pour laisser Next inférer
-export default async function ArticlePage({ params }: { params: { slug: string } }) {
+// ✅ Voici le bon typage selon la convention Next.js App Router
+export default async function Page({
+  params,
+}: {
+  params: { slug: string };
+}) {
   const { data } = await client.query({
     query: GET_POST,
     variables: { slug: params.slug },
